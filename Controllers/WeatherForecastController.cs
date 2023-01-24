@@ -13,12 +13,13 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
 
-    private static List<WeatherForecastController> ListWeatherForecast = new List<WeatherForecastController>();
+    private static List<WeatherForecast> ListWeatherForecast = new List<WeatherForecast>();
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger)
     {
         _logger = logger;
-        if (ListWeatherForecast == null || ListWeatherForecast.Any())
+
+        if (ListWeatherForecast  == null || !ListWeatherForecast.Any())
         {
             ListWeatherForecast =  Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -26,7 +27,7 @@ public class WeatherForecastController : ControllerBase
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
-            .ToList();
+                .ToList();
         }
     }
 
@@ -37,14 +38,14 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post(WeatherForecastController weatherForecast)
+    public IActionResult Post(WeatherForecast weatherForecast)
     {
         ListWeatherForecast.Add(weatherForecast);
         return Ok();
     }
 
     [HttpDelete]
-    public IActionResult Delete(in index)
+    public IActionResult Delete(int index)
     {
         ListWeatherForecast.RemoveAt(index);
         return Ok();
