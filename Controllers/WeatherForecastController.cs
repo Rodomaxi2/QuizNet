@@ -32,9 +32,10 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    [Route("get/WeatherForecast")]
+    // [Route("get/WeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
+        _logger.LogDebug("Returning WeatherForecast List");
         return ListWeatherForecast;
     }
 

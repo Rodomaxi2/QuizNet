@@ -10,6 +10,7 @@ public class HelloWorldController : ControllerBase
         this.helloWorldService = helloWorldService;
     }
 
+    [HttpGet]
     public IActionResult Get()
     {
         return Ok(helloWorldService.GetHelloWorld());
