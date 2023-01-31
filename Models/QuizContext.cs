@@ -1,6 +1,8 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
+namespace poll_api.Models;
+
 public class QuizContext: DbContext
 {
     public DbSet<User> Users {get; set;}

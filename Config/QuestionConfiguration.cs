@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using poll_api.Models;
 
 public class QuestionConfiguration : IEntityTypeConfiguration<Question>
 {

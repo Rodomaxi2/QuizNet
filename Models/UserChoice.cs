@@ -1,3 +1,5 @@
+namespace poll_api.Models;
+
 public class UserChoice
 {
     public Guid Id {get; set;}  
