@@ -7,6 +7,7 @@ public class QuizContext: DbContext
     public DbSet<UserChoice> UserChoice {get; set;}
     public DbSet<Question> Questions {get; set;}
     public DbSet<Choice> Choices {get; set;}
+
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
