@@ -12,8 +12,8 @@ using poll_api.Models;
 namespace pollapi.Migrations
 {
     [DbContext(typeof(QuizContext))]
-    [Migration("20230131000255_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230201205040_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace pollapi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Choice", b =>
+            modelBuilder.Entity("poll_api.Models.Choice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace pollapi.Migrations
                     b.ToTable("Choices");
                 });
 
-            modelBuilder.Entity("Question", b =>
+            modelBuilder.Entity("poll_api.Models.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace pollapi.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("poll_api.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +83,7 @@ namespace pollapi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserChoice", b =>
+            modelBuilder.Entity("poll_api.Models.UserChoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,9 +104,9 @@ namespace pollapi.Migrations
                     b.ToTable("UserChoice");
                 });
 
-            modelBuilder.Entity("Choice", b =>
+            modelBuilder.Entity("poll_api.Models.Choice", b =>
                 {
-                    b.HasOne("Question", "Question")
+                    b.HasOne("poll_api.Models.Question", "Question")
                         .WithMany("Choice")
                         .HasForeignKey("IdQuestion")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -115,15 +115,15 @@ namespace pollapi.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("UserChoice", b =>
+            modelBuilder.Entity("poll_api.Models.UserChoice", b =>
                 {
-                    b.HasOne("Choice", "Choice")
+                    b.HasOne("poll_api.Models.Choice", "Choice")
                         .WithMany("UserChoice")
                         .HasForeignKey("IdChoice")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User", "User")
+                    b.HasOne("poll_api.Models.User", "User")
                         .WithMany("UserChoice")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -134,17 +134,17 @@ namespace pollapi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Choice", b =>
+            modelBuilder.Entity("poll_api.Models.Choice", b =>
                 {
                     b.Navigation("UserChoice");
                 });
 
-            modelBuilder.Entity("Question", b =>
+            modelBuilder.Entity("poll_api.Models.Question", b =>
                 {
                     b.Navigation("Choice");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("poll_api.Models.User", b =>
                 {
                     b.Navigation("UserChoice");
                 });

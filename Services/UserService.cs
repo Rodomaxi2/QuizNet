@@ -21,6 +21,7 @@ public class UserService : IUserService
     {
         if(user != null)
         {
+            user.Id = Guid.NewGuid();
             await context.AddAsync(user);
             await context.SaveChangesAsync();
         }

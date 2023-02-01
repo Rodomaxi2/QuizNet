@@ -27,13 +27,14 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Put(Guid id, [FromBody] User user)
+    public IActionResult Put([FromQuery] Guid id, [FromBody] User user)
     {
         userService.Update(id, user);
         return Ok();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete]
+    [Route("{id}")]
     public IActionResult Delete(Guid id)
     {
         userService.Delete(id);
