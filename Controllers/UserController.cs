@@ -19,6 +19,16 @@ public class UserController : ControllerBase
         return Ok(userService.Get());
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    public IActionResult GetId(Guid id)
+    {
+        User user = userService.GetById(id);
+        if(user == null)
+            return NotFound();
+        return Ok(user);
+    }
+
     [HttpPost]
     public IActionResult Post([FromBody] User user)
     {

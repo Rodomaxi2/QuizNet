@@ -17,6 +17,11 @@ public class UserService : IUserService
         return context.Users;
     }
 
+    public User GetById(Guid id)
+    {
+        return context.Users.Find(id);
+    }
+
     public async Task Add(User user)
     {
         if(user != null)
@@ -51,6 +56,7 @@ public class UserService : IUserService
 public interface IUserService
 {
     IEnumerable<User> Get();
+    public User GetById(Guid id);
     Task Add(User user);
     Task Update(Guid id, User user);
     Task Delete(Guid id);
