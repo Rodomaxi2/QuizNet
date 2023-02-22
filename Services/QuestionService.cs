@@ -46,11 +46,3 @@ public class QuestionService : IQuestionService
         }
     }
 }
-
-public interface IQuestionService
-{
-    IEnumerable<Question> Get();
-    Task Add(Question question);
-    Task Update(Guid id, Question question);
-    Task Delete(Guid id);
-}

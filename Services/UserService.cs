@@ -4,17 +4,21 @@ namespace poll_api.Services;
 
 public class UserService : IUserService
 {
+    private readonly ILogger<UserService> _logger;
     QuizContext context;
 
-    public UserService(QuizContext dbContext)
+    public UserService(QuizContext dbContext, ILogger<UserService> logger)
     {
+        _logger = logger;
         context = dbContext;
     }
 
     // Metodos para manipular el modelo
     public IEnumerable<User> Get()
     {
-        return context.Users;
+        var users = context.Users;
+        _logger.LogDebug("#######Mostrando todos los usuarios##############");
+        return users;
     }
 
     public User GetById(Guid id)
@@ -27,6 +31,7 @@ public class UserService : IUserService
         if(user != null)
         {
             user.Id = Guid.NewGuid();
+            _logger.LogDebug($"##############Agragando usuario: userName: {user.UserName} - id:{user.Id}#################");
             await context.AddAsync(user);
             await context.SaveChangesAsync();
         }
@@ -40,6 +45,7 @@ public class UserService : IUserService
             currentUser.UserName = user.UserName;
             await context.SaveChangesAsync();
         }
+        _logger.LogError("Usuario no encontrado");
     }
 
     public async Task Delete(Guid id)
@@ -48,16 +54,9 @@ public class UserService : IUserService
         if(currentUser != null)
         {
             context.Remove(currentUser);
+            // ????
+            // context.Remove<User>(currentUser);
             await context.SaveChangesAsync();
         }
     }
-}
-
-public interface IUserService
-{
-    IEnumerable<User> Get();
-    public User GetById(Guid id);
-    Task Add(User user);
-    Task Update(Guid id, User user);
-    Task Delete(Guid id);
 }

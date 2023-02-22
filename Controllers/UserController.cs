@@ -38,7 +38,7 @@ public class UserController : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    public IActionResult Put([FromQuery] Guid id, [FromBody] User user)
+    public IActionResult Put(Guid id, [FromBody] User user)
     {
         userService.Update(id, user);
         return Ok();
