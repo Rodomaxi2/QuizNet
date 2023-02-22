@@ -5,8 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Se agrega coneccion para base de datos
-builder.Services.AddSqlServer<QuizContext>(builder.Configuration.GetConnectionString("connQuiz"));
+// Se agrega conexion para base de datos
+// builder.Services.AddSqlServer<QuizContext>(builder.Configuration.GetConnectionString("connQuiz"));
+builder.Services.AddDbContext<QuizContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -23,4 +23,11 @@ public class QuizContext: DbContext
         modelBuilder.ApplyConfiguration(new QuestionConfiguration());
         modelBuilder.ApplyConfiguration(new UserChoiceConfiguration());
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.LogTo(Console.WriteLine).EnableSensitiveDataLogging(true);
+        optionsBuilder.UseSqlServer("Data Source=(local); Initial Catalog=QuizDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+    }
 }
