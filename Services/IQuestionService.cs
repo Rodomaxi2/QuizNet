@@ -1,11 +1,14 @@
 using poll_api.Models;
 
-namespace poll_api.Services;
-public interface IQuestionServices
+public interface IQuestionService
 {
     IEnumerable<Question> Get();
 
-    Question GetQuestById();
+    Question GetQuestionById(Guid id);
 
-    Task Add();
+    Task Add(Question question);
+
+    Task Update(Guid id, Question question);
+
+    Task DeleteById(Guid id);
 }
