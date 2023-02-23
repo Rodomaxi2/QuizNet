@@ -34,6 +34,11 @@ public class QuestionService : IQuestionService
         if(question is not null)
         {
             question.Id = Guid.NewGuid();
+            foreach(Choice choice in question.Choices)
+            {
+                choice.Id = Guid.NewGuid();
+                choice.IdQuestion = question.Id;
+            }
             await context.AddAsync(question);
             await context.SaveChangesAsync();
         }
