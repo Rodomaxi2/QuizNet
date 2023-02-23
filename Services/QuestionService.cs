@@ -5,9 +5,9 @@ namespace poll_api.Services;
 public class QuestionService : IQuestionService
 {
     QuizContext context;
-    Logger<QuestionService> _logger;
+    private readonly ILogger<QuestionService> _logger;
 
-    public QuestionService(QuizContext dbContext, Logger<QuestionService> logger)
+    public QuestionService(QuizContext dbContext, ILogger<QuestionService> logger)
     {
         context = dbContext;
         this._logger = logger;
@@ -33,6 +33,7 @@ public class QuestionService : IQuestionService
     {
         if(question is not null)
         {
+            question.Id = Guid.NewGuid();
             await context.AddAsync(question);
             await context.SaveChangesAsync();
         }
