@@ -8,8 +8,8 @@ public class User
     public Guid Id {get; set;}
     public string UserName {get;set;}
 
-    // Navigation Properties
+    // Navigation Properties el usuario no tiene porque elegir una opcion
     [JsonIgnore]
     [ValidateNever]
-    public virtual ICollection<UserChoice> UserChoice {get; set;}
+    public virtual ICollection<UserChoice>? UserChoice {get; set;}
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace pollapi.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,8 +48,8 @@ namespace pollapi.Migrations
                 {
                     table.PrimaryKey("PK_Choices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Choices_Questions_IdQuestion",
-                        column: x => x.IdQuestion,
+                        name: "FK_Choices_Questions_Id",
+                        column: x => x.Id,
                         principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -59,13 +59,12 @@ namespace pollapi.Migrations
                 name: "UserChoice",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdChoice = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserChoice", x => x.Id);
+                    table.PrimaryKey("PK_UserChoice", x => new { x.IdUser, x.IdChoice });
                     table.ForeignKey(
                         name: "FK_UserChoice_Choices_IdChoice",
                         column: x => x.IdChoice,
@@ -81,19 +80,9 @@ namespace pollapi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Choices_IdQuestion",
-                table: "Choices",
-                column: "IdQuestion");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserChoice_IdChoice",
                 table: "UserChoice",
                 column: "IdChoice");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserChoice_IdUser",
-                table: "UserChoice",
-                column: "IdUser");
         }
 
         /// <inheritdoc />

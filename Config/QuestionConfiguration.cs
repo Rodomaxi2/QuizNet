@@ -7,7 +7,9 @@ public class QuestionConfiguration : IEntityTypeConfiguration<Question>
     public void Configure(EntityTypeBuilder<Question> questionBuilder)
     {
         questionBuilder.HasKey(x => x.Id);
-        questionBuilder.HasMany(x => x.Choice).WithOne(y => y.Question).OnDelete(DeleteBehavior.Cascade);
+        // Debe de ponerse en un solo lado?
+        questionBuilder.HasMany(x => x.Choices).WithOne(x => x.Question).HasForeignKey(x => x.Id);
+
         questionBuilder.Property(x => x.QuestionText).HasMaxLength(50).IsRequired();
     }
 }

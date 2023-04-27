@@ -25,7 +25,6 @@ namespace pollapi.Migrations
             modelBuilder.Entity("poll_api.Models.Choice", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ChoiceText")
@@ -42,8 +41,6 @@ namespace pollapi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdQuestion");
 
                     b.ToTable("Choices");
                 });
@@ -82,21 +79,15 @@ namespace pollapi.Migrations
 
             modelBuilder.Entity("poll_api.Models.UserChoice", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("IdUser")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IdChoice")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
+                    b.HasKey("IdUser", "IdChoice");
 
                     b.HasIndex("IdChoice");
-
-                    b.HasIndex("IdUser");
 
                     b.ToTable("UserChoice");
                 });
@@ -104,8 +95,8 @@ namespace pollapi.Migrations
             modelBuilder.Entity("poll_api.Models.Choice", b =>
                 {
                     b.HasOne("poll_api.Models.Question", "Question")
-                        .WithMany("Choice")
-                        .HasForeignKey("IdQuestion")
+                        .WithMany("Choices")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -138,7 +129,7 @@ namespace pollapi.Migrations
 
             modelBuilder.Entity("poll_api.Models.Question", b =>
                 {
-                    b.Navigation("Choice");
+                    b.Navigation("Choices");
                 });
 
             modelBuilder.Entity("poll_api.Models.User", b =>

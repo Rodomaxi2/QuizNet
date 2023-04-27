@@ -9,6 +9,6 @@ public class Question
 
     // Navigation Properties
     // [JsonIgnore]
-    public virtual ICollection<Choice> Choice {get; set;}
+    public virtual ICollection<Choice> Choices {get; set;}
 
 }
