@@ -34,11 +34,20 @@ public class QuestionService : IQuestionService
         if(question is not null)
         {
             question.Id = Guid.NewGuid();
+            //comentario
+
             foreach(Choice choice in question.Choices)
             {
                 choice.Id = Guid.NewGuid();
                 choice.IdQuestion = question.Id;
+                // _logger.LogDebug($"############# Agregando id a choice: {choice.ChoiceText}, ChoiceId: {choice.Id} QuestionId: {question.Id} #########");
             }
+
+            foreach(Choice choice in question.Choices)
+            {
+                _logger.LogDebug($"############# Despues de foreach id a choice: {choice.ChoiceText}, ChoiceId: {choice.Id} QuestionId: {question.Id} #########");
+            }
+
             await context.AddAsync(question);
             await context.SaveChangesAsync();
         }
